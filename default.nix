@@ -14,11 +14,10 @@ mkDerivation rec {
   name = "${pname}-${version}";
   src = lib.cleanSource ./.;
   nativeBuildInputs = [ jdk17_headless maven makeWrapper ];
+  # mvn package spring-boot:repackage -X  --offline -Dmaven.repo.local=${mavenRepository}
   buildPhase = ''
-    # mvn package spring-boot:repackage -X  --offline -Dmaven.repo.local=${mavenRepository}
     mvn --offline -Dmaven.repo.local=${repository} package spring-boot:repackage;
   '';
-  #
   installPhase = ''
     mkdir -p $out/bin
     ln -s ${mavenRepository} $out/lib
