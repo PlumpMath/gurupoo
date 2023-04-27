@@ -1,9 +1,10 @@
 
 { pkgs ? import <nixpkgs> {} }:
-
+with pkgs;
 let
   mvn2nix = import (fetchTarball "https://github.com/fzakaria/mvn2nix/archive/master.tar.gz") {};
   mavenRepository = mvn2nix.buildMavenRepositoryFromLockFile { file = ./mvn2nix-lock.json; };
+  repository = (buildMaven ./project-info.json).repo;
   inherit (pkgs) lib stdenv maven makeWrapper jdk17_headless;
   inherit (stdenv) mkDerivation;
 in
@@ -14,7 +15,8 @@ mkDerivation rec {
   src = lib.cleanSource ./.;
   nativeBuildInputs = [ jdk17_headless maven makeWrapper ];
   buildPhase = ''
-    mvn package spring-boot:repackage -X  --offline -Dmaven.repo.local=${mavenRepository}
+    # mvn package spring-boot:repackage -X  --offline -Dmaven.repo.local=${mavenRepository}
+    mvn --offline -Dmaven.repo.local=${repository} package spring-boot:repackage;
   '';
   #
   installPhase = ''
