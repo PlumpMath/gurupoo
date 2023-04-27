@@ -16,7 +16,7 @@ in mkDerivation rec {
   nativeBuildInputs = [ jdk11_headless maven makeWrapper ];
   buildPhase = ''
     echo "Building with maven repository ${mavenRepository}"
-    mvn package spring-boot:repackage --offline -Dmaven.repo.local=${mavenRepository}
+    mvn package spring-boot:repackage -X --offline -Dmaven.repo.local=${mavenRepository}
   '';
 
   installPhase = ''
