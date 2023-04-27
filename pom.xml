@@ -6,6 +6,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.7.11</version>
+    <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>plumpmath</groupId>
   <artifactId>gurupoo</artifactId>
@@ -34,8 +35,6 @@
 	<groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
-
-
     </plugins>
   </build>
 
